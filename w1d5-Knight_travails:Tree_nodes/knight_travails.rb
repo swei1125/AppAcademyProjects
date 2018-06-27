@@ -1,4 +1,4 @@
-require_relative 'skeleton/lib/00_tree_node'
+require_relative 'Tree_Node/lib/00_tree_node'
 
 
 class KnightPathFinder
@@ -24,32 +24,33 @@ class KnightPathFinder
     queue = [@root]
     until queue.empty?
       current_node = queue.shift
-      available_pos = new_move_positions(@pos).map {|el| PolyTreeNode.new(el)}
-      available_pos.each {|node| node.parent = @root}
-      queue += available_pos
-
+      pos = current_node.value
+      available_pos = new_move_positions(pos).map {|el| PolyTreeNode.new(el)}
+      available_pos.each do |node|
+        node.parent = current_node
+        queue << node
+      end
     end
     @root
   end
 
   def find_path(pos)
-    p "THIS IS ROOT"
-    p @root
+
     end_node = @root.bfs(pos)
     trace_back_path(end_node)
   end
-
+require 'byebug'
   def trace_back_path(end_node)
-    result = [end_node]
+    # debugger
+    result = []
 
-    until end_node == @root
-      p "THIS IS WHERE WE ARE AT"
-      p end_node.value
+    until end_node.nil?
+      result.unshift(end_node.value)
       end_node = end_node.parent
-      result.unshift(end_node)
 
     end
-    result.map {|node| node.value}
+    # result.map {|node| node.value}
+    result
   end
 
   def self.valid_move?(pos)
@@ -71,6 +72,9 @@ class KnightPathFinder
   end
 
 end
-# k = KnightPathFinder.new([0,0])
 
-# k.find_path([6,2])
+if __FILE__ == @PROGRAM_NAME
+  k = KnightPathFinder.new([0,0])
+
+  p k.find_path([7,6])
+end
