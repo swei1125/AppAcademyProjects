@@ -19,7 +19,7 @@ ol {
   list-style: circle inside;
 }
 
-header img {
+header > img {
   width: 100px;
 }
 
@@ -33,7 +33,5 @@ header ul li a {
   color: red;
 }
 #reviews p {
-  font-family: fantasy; 
+  font-family: fantasy;
 }
-
-
