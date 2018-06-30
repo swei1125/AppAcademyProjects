@@ -9,18 +9,40 @@ class HashMap
   end
 
   def include?(key)
+    bucket(key).include?(key)
   end
 
   def set(key, val)
+    resize! if @count == num_buckets
+    if bucket(key).include?(key)
+      bucket(key).update(key, val)
+    else
+      bucket(key).append(key, val)
+      @count += 1
+    end
   end
 
   def get(key)
+    bucket(key).get(key)
   end
 
   def delete(key)
+    if bucket(key).include?(key)
+      bucket(key).remove(key)
+      @count -= 1
+    end
   end
 
   def each
+    @store.each do |list|
+      list.each do |node|
+        yield(node.key, node.val)
+      end
+    end
+  end
+
+  def self.ancestors
+     [HashMap, Object, Kernel, BasicObject, Enumerable]
   end
 
   # uncomment when you have Enumerable included
@@ -41,9 +63,18 @@ class HashMap
   end
 
   def resize!
+    store1 = Array.new(num_buckets * 2) {LinkedList.new}
+    @store.each do |list|
+      list.each do |node|
+        store1[node.key.hash % (num_buckets * 2)].append(node.key, node.val)
+      end
+    end
+    @store = store1
   end
 
   def bucket(key)
     # optional but useful; return the bucket corresponding to `key`
+    num = key.hash
+    @store[num % num_buckets]
   end
 end
