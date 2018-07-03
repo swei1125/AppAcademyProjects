@@ -1,25 +1,55 @@
-require_relative "card"
+require_relative "deck"
 
 class Hand
-  attr_reader :hand_cards, :rank
+  attr_reader :cards, :rank
+
+  def self.draw_cards(deck)
+    Hand.new(deck.take(5))
+  end
 
   def initialize(cards)
-    @hand_cards = cards
+    @cards = cards
     @rank = 1
   end
 
   def check_rank
-    @rank = 2 if one_pair?
-    @rank = 3 if two_pair?
-    @rank = 4 if three_of_a_kind?
-    @rank = 5 if straight?
-    @rank = 6 if flush?
-    @rank = 7 if full_house?
-    @rank = 8 if four_of_a_kind?
-    @rank = 9 if straight_flush?
+    if straight_flush?
+      @rank = 9
+    elsif four_of_a_kind?
+      @rank = 8
+    elsif full_house?
+      @rank = 7
+    elsif flush?
+      @rank = 6
+    elsif straight?
+      @rank = 5
+    elsif three_of_a_kind?
+      @rank = 4
+    elsif two_pair?
+      @rank = 3
+    elsif one_pair?
+      @rank = 2
+    end
     @rank
   end
 
+  def beats?(other_hand)
+    @rank > other_hand.rank
+  end
+
+  def draw?(other_hand)
+    @rank == other_hand.rank
+  end
+
+  def hit(deck, n)
+    raise "You only have up to 3 cards to draw" if n > 3
+    @cards += deck.take(n)
+  end
+
+  def show
+    p @cards.map {|card| card.to_s}
+  end
+  
   def one_pair?
     arr = value_arr
     arr.any? {|value| arr.count(value) == 2}
@@ -68,13 +98,13 @@ class Hand
   private
   def value_arr
     value_arr = []
-    @hand_cards.each {|card| arr << card.value}
+    @cards.each {|card| arr << card.value}
     value_arr
   end
 
   def suit_arr
     suit_arr = []
-    @hand_cards.each {|card| arr << card.suit}
+    @cards.each {|card| arr << card.suit}
     suit_arr
   end
 end
