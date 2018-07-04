@@ -58,7 +58,8 @@ INSERT INTO
   questions (title, body, author_id)
 VALUES
   ('Q1', 'B1', (SELECT id FROM users WHERE fname = 'Jennifer' AND lname = 'Kennedy')),
-  ('Q2', 'B2', (SELECT id FROM users WHERE fname = 'natasha' AND lname = 'wei'));
+  ('Q2', 'B2', (SELECT id FROM users WHERE fname = 'natasha' AND lname = 'wei')),
+  ('Q3', 'B3', 3);
   
 INSERT INTO 
   question_follows (question_id, user_id)
@@ -75,7 +76,7 @@ VALUES
   ((SELECT id FROM questions WHERE title = 'Q2'), 2, (SELECT id FROM users WHERE fname = 'Jennifer'), 'R2');
   
   INSERT INTO
-    question_likes(question_id, user_id)
+    question_likes (question_id, user_id)
   VALUES
     ((SELECT id FROM questions WHERE title = 'Q1'), (SELECT id FROM users WHERE fname = 'natasha')),
     ((SELECT id FROM questions WHERE title = 'Q2'), (SELECT id FROM users WHERE fname = 'Jennifer')),

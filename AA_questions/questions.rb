@@ -15,6 +15,7 @@ end
 
 
 class Question
+  attr_accessor :title, :body, :author_id
   
   def self.most_followed(n)
     QuestionFollow.most_followed_questions(n)
@@ -42,6 +43,29 @@ class Question
     @body = options['body']
     @author_id = options['author_id']
   end
+  
+  def save
+    if @id 
+      QuestionsDBConnection.instance.execute(<<-SQL, @title, @body, @author_id, @id)
+        UPDATE 
+          questions 
+        SET 
+          title = ?, body = ?, author_id = ?
+        WHERE
+          id = ?
+      SQL
+    else
+
+      QuestionsDBConnection.instance.execute(<<-SQL, @title, @body, @author_id)
+        INSERT INTO 
+          questions (title, body, author_id)
+        VALUES 
+          (?, ?, ?)
+      SQL
+      
+      @id = QuestionsDBConnection.instance.last_insert_row_id
+    end
+  end 
   
   def author
     QuestionsDBConnection.instance.execute(<<-SQL, @author_id)
@@ -75,6 +99,7 @@ end
 
 
 class Reply  
+  attr_accessor :body 
   def self.find_by_user_id(user_id)
     replies = QuestionsDBConnection.instance.execute(<<-SQL, user_id)
       SELECT
@@ -106,6 +131,28 @@ class Reply
     @author_id = options['author_id']
     @parent_id = options['parent_id']
     @body = options['body']
+  end
+  
+  def save
+    if @id 
+      QuestionsDBConnection.instance.execute(<<-SQL, @question_id, @author_id, @parent_id, @body, @id)
+        UPDATE 
+          users 
+        SET 
+          question_id = ?, author_id = ?, parent_id = ?, body = ?
+        WHERE
+          id = ?
+      SQL
+    else
+      QuestionsDBConnection.instance.execute(<<-SQL, @question_id, @author_id, @parent_id, @body)
+        INSERT INTO 
+          replies (question_id, author_id, parent_id, body)
+        VALUES 
+          (?, ?, ?, ?)
+      SQL
+      
+      @id = QuestionsDBConnection.instance.last_insert_row_id
+    end 
   end
   
   def author
@@ -155,8 +202,10 @@ end
 
 
 class User 
+  attr_accessor :fname, :lname
+  
   def self.find_by_name(fname, lname)
-    users = QuestionsDBConnection.instance.execute(<<-SQL, fname, lname)
+    user = QuestionsDBConnection.instance.execute(<<-SQL, fname, lname)
       SELECT
         *
       FROM 
@@ -164,13 +213,35 @@ class User
       WHERE 
         fname = ? AND lname = ?
     SQL
-    users.map {|u| User.new(u)}
+    user.map {|u| User.new(u)}.first
   end
   
   def initialize(options)
     @id = options['id']
     @fname = options['fname']
     @lname = options['lname']
+  end
+  
+  def save
+    if @id 
+      QuestionsDBConnection.instance.execute(<<-SQL, @fname, @lname, @id)
+        UPDATE 
+          users 
+        SET 
+          fname = ?, lname = ?
+        WHERE
+          id = ?
+      SQL
+    else
+      QuestionsDBConnection.instance.execute(<<-SQL, @fname, @lname)
+        INSERT INTO 
+          users (fname, lname)
+        VALUES 
+          (?, ?)
+      SQL
+      
+      @id = QuestionsDBConnection.instance.last_insert_row_id
+    end
   end
   
   def authored_questions
@@ -190,16 +261,18 @@ class User
   end
   
   def average_karma
-    QuestionsDBConnection.instance.execute(<<-SQL, @id)
-      SELECT 
-        question_id 
+    data = QuestionsDBConnection.instance.execute(<<-SQL, @id)
+      SELECT
+        COUNT(user_id) AS total_likes, COUNT(DISTINCT(questions.id)) AS total_qs
       FROM
-        question_likes
-      GROUP BY 
-        question_id 
-      ORDER BY 
-        COUNT(user_id)
+        questions
+      LEFT OUTER JOIN question_likes
+        ON questions.id = question_likes.question_id
+      WHERE
+        author_id = ?
+      SQL
     
+    data.first['total_likes'] / data.first['total_qs']
   end
 end 
 
@@ -335,6 +408,3 @@ class QuestionLike
     questions.map {|q| Question.new(q)}
   end
 end 
-
-
-
