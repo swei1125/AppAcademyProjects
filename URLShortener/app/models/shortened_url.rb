@@ -23,6 +23,7 @@ class ShortenedUrl < ApplicationRecord
     class_name: :Visit 
     
   has_many :visitors,
+    Proc.new {distinct},
     through: :visits, 
     source: :visitor
     
@@ -39,5 +40,12 @@ class ShortenedUrl < ApplicationRecord
     ShortenedUrl.new(long_url: long_url, short_url: short_url, user_id: user.id)
   end
   
+  def num_clicks
+    self.visits.length 
+  end
+  
+  def num_uniques
+    self.visitors.length
+  end
   
 end 
