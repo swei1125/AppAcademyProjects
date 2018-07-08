@@ -6,4 +6,5 @@ def execute(sql)
   conn.close
 
   query_result
+  
 end
