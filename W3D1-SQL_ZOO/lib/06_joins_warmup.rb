@@ -40,7 +40,7 @@ def films_from_sixty_two
     id, title
   FROM
     movies
-  WHERE 
+  WHERE
     yr = 1962
   SQL
 end
@@ -48,7 +48,7 @@ end
 def year_of_kane
   # Give year of 'Citizen Kane'.
   execute(<<-SQL)
-  SELECT 
+  SELECT
     yr
   FROM
     movies
@@ -64,10 +64,10 @@ def trek_films
   execute(<<-SQL)
   SELECT
     id, title, yr
-  FROM 
+  FROM
     movies
   WHERE
-    title LIKE 'Star Trek%'
+    title LIKE '%Star Trek%'
   ORDER BY yr ASC
   SQL
 end
@@ -79,8 +79,8 @@ def films_by_id
     title
   FROM
     movies
-  WHERE 
-    id = 1119 OR id = 1595 OR id = 1768
+  WHERE
+    id in (1119, 1595, 1768)
   SQL
 end
 
@@ -88,10 +88,10 @@ def glenn_close_id
   # What id number does the actress 'Glenn Close' have?
   execute(<<-SQL)
   SELECT
-    id 
-  FROM 
-    actors 
-  WHERE 
+    id
+  FROM
+    actors
+  WHERE
     name = 'Glenn Close'
   SQL
 end
@@ -99,11 +99,11 @@ end
 def casablanca_id
   # What is the id of the film 'Casablanca'?
   execute(<<-SQL)
-  SELECT 
-    id 
-  FROM 
-    movies 
-  WHERE 
+  SELECT
+    id
+  FROM
+    movies
+  WHERE
     title = 'Casablanca'
   SQL
 end
@@ -114,12 +114,13 @@ def casablanca_cast
   execute(<<-SQL)
   SELECT
     name
-  FROM 
-    castings 
-    JOIN movies ON castings.movie_id = movies.id 
+  FROM
+    castings
+    -- JOIN movies ON castings.movie_id = movies.id
     JOIN actors ON castings.actor_id = actors.id
-  WHERE 
-    title = 'Casablanca'
+  WHERE
+    -- title = 'Casablanca'
+    movie_id = #{casablanca_id.first.first}
   SQL
 end
 
@@ -128,11 +129,11 @@ def alien_cast
   execute(<<-SQL)
   SELECT
     name
-  FROM 
-    castings 
-    JOIN movies ON castings.movie_id = movies.id 
+  FROM
+    castings
+    JOIN movies ON castings.movie_id = movies.id
     JOIN actors ON castings.actor_id = actors.id
-  WHERE 
+  WHERE
     title = 'Alien'
   SQL
 end

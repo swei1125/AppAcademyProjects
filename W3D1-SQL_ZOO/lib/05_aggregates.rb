@@ -61,7 +61,7 @@ def group_population
   FROM
     countries
   WHERE
-    name = 'France' OR name = 'Germany' OR name = 'Spain'
+    name in ('France', 'Germany', 'Spain')
   SQL
 end
 
@@ -84,9 +84,9 @@ def populous_country_counts
     continent, COUNT(name)
   FROM
     countries
-  WHERE 
+  WHERE
     population >= 10000000
-  GROUP BY 
+  GROUP BY
     continent
   SQL
 end
@@ -100,6 +100,6 @@ def populous_continents
     countries
   GROUP BY continent
   HAVING SUM(population) >= 100000000
-    
+
   SQL
 end
