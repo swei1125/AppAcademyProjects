@@ -1,0 +1,44 @@
+<h1>NEW <%= @current_album.title.upcase %> ALBUM!</h1>
+
+
+<form class="new_track" action=" <%= tracks_url %> " method="post">
+  <%= authen_form %>
+
+  <label for="track_title">Title
+    <input type="text" name="track[title]" value="">
+  </label>
+  <br><br>
+
+
+  <label for="track_band">Band
+    <select name="track[album_id]">
+      <% Album.all.each do |album| %>
+        <option value="<%= album.id %>" <%= @current_album == album ? "select" : "" %>>
+          <%= album.title  %>
+        </option>
+      <% end  %>
+    </select>
+  </label>
+  <br><br>
+
+  <label for="track_type">Regular
+    <input type="radio" name="track[track_type]" value="Regular"
+     <%= @track.track_type == 'Regular' ? 'checked' : '' %> >
+  </label>
+  <label for="track_type">Bonus
+    <input type="radio" name="album[alb_type]" value="Bonus"
+     <%= @track.track_type == 'Bonus' ? 'checked' : '' %> >
+  </label>
+  <br><br>
+
+  <!-- <label for="album_year">Year
+    <input type="text" name="album[year]" value="">
+  </label>
+  <br><br> -->
+  <label for="lyrics">
+    <textarea name="track[lyric]" rows="8" cols="80"></textarea>
+  </label>
+
+  <input type="submit" value="Submit">
+
+</form>

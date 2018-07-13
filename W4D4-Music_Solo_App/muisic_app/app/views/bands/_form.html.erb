@@ -1,0 +1,22 @@
+
+<% if type == :new
+      action = bands_url
+      method = "post"
+   else
+     action = band_url(band)
+     method = "post"
+   end  %>
+
+<form action="<%= action %>" method="<%= method %>">
+
+  <% if type == :edit %>
+      <input type="hidden" name="_method" value="patch">
+  <% end  %>
+  <%= authen_form %>
+
+  <label for="band_name">Name
+    <input type="text" name="band[name]" value="<%= type == :edit ? band.name : "" %>">
+  </label>
+
+  <input type="submit" value="Submit">
+</form>
