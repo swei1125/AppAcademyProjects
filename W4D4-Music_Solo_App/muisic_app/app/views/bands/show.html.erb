@@ -1,0 +1,21 @@
+
+<h1> <%= @band.name.upcase %> </h1>
+
+<h2>ALBUMS</h2>
+<section class='albums'>
+  <% @band.albums.each do |album| %>
+    <%= link_to album.title, album_url(album) %>
+    <br>
+  <% end %>
+</section>
+
+
+
+<div class="band_option">
+  <h4>LINKS</h4>
+  <%= button_to "New album", new_band_album_url(@band), method: :get %>
+  <%= button_to "Edit Band", edit_band_url, method: :get %>
+  <%= button_to "Destroy Band", band_url(@band), method: :delete %>
+  <%= button_to "All Bands", bands_url, method: :get %>
+
+</div>
