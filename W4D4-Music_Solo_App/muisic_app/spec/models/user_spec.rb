@@ -11,33 +11,34 @@
 #
 
 require 'rails_helper'
-
+require 'shoulda-matchers'
 RSpec.describe User, type: :model do
   # pending "add some examples to (or delete) #{__FILE__}"
   describe 'validations' do
     it { should validate_presence_of(:email) }
     it { should validate_presence_of(:password_digest) }
-    it { should validate_length_of(:password) }
+    it { should validate_length_of(:password).is_at_least(6) }
   end
 
 
   describe 'class methods' do
-    describe '#is_password?' do
-      user = User.new(email: '123@email.com')
-      user.password = '123456'
-      it "should set user's password_digest" do
-        # expect(user.password_digest).not_be nil
-      end
+    subject(:user) do
+      FactoryBot.build(:user, email: 'abc@email.com', password: '123456')
     end
-    describe '#ensure_session_token' do
+
+    describe '#is_password?' do
+      it "should set user's password_digest" do
+        expect(user.password_digest).to_not be_nil
+      end
     end
 
     describe '#reset_session_token' do
+      it "should reset user's session_token" do
+        old_session_token = user.session_token
+        user.reset_session_token!
+        expect(user.session_token).to_not eq(old_session_token)
+      end
     end
-
-    describe '::find_by_credentials' do
-    end
-
 
   end
 end
