@@ -1,0 +1,15 @@
+.contents {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+/* Attribute selector targeting all elements
+with a class attribute containing 'col-' */
+
+
+
+@media all and (max-width: 1000px) {
+  [class*='col-'] {
+    // width:
+  }
+}

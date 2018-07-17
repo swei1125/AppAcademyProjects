@@ -1,0 +1,18 @@
+.section-nav {
+  border-bottom: 1px solid $light-gray;
+  font-family: $sans-serif;
+}
+
+.section-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  
+  li {
+    margin: 10px 10px; 
+    
+    a:hover {
+      background-color: $lightest-gray;
+    }
+  }
+}

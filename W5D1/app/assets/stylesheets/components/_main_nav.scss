@@ -1,0 +1,63 @@
+.main-nav {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+  border-bottom: 1px solid $light-gray;
+  padding: 10px;
+  font-family: $sans-serif;
+  font-weight: bold;
+}
+
+.left-nav > ul,
+.right-nav > ul {
+  display: flex;
+  align-items: center;
+}
+
+.left-nav > ul > li {
+  padding: 10px;
+  margin: 0 15px;
+}
+
+.right-nav > ul > li{
+  margin: 0 2px;
+  padding: 0px;
+}
+
+.right-nav > ul > li > button{
+  background-color: $light-blue;
+  color: white;
+  font-size: inherit;
+  font-weight: inherit;
+  padding: 5px 10px;
+  border-radius: 4px;
+  height: 20px;
+}
+
+.right-nav > ul > li:last-of-type {
+  padding: 0 10px;
+}
+
+.right-nav >ul >li >button:hover {
+  background-color: $darkest-blue;
+  border-color: $darkest-blue;
+  // background-color: darken($blue, 0.5);
+}
+
+.left-nav > ul > li:hover,
+.right-nav > ul > li:last-of-type:hover {
+  background-color: $lightest-gray;
+}
+
+.left-nav span {
+  font-size: inherit;
+  margin-left: 10px;
+}
+
+
+.right-nav i {
+  font-size: 18px;
+
+}
