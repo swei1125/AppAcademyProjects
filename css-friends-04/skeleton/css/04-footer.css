@@ -1,0 +1,14 @@
+/* PHASE 4: Footer */
+footer {
+  display: flex;
+  justify-content: space-between;
+  width: 900px;
+  margin: 0 auto;
+  background-color: white;
+  color: lightgray;
+}
+
+.nav-list {
+  display: flex;
+  flex-direction: row;
+}
