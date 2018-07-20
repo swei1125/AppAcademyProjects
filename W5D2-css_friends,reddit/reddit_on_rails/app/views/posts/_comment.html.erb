@@ -1,0 +1,10 @@
+<ul>
+  <li>
+    <%= "(#{comment.vote_count}) " %>
+     <%= link_to "#{comment.content}", comment_url(comment) %>
+     <% child_comments = comments_by_parent_id[comment.id].sort_by {|c| c.vote_count} %>
+   <% child_comments.reverse.each do |child_comment| %>
+      <%= render "comment", comment: child_comment, comments_by_parent_id: comments_by_parent_id %>
+  <% end %>
+  </li>
+</ul>
