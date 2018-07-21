@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Goalsetter</title>
+    <%= csrf_meta_tags %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <p><%=logged_in?%></p>
+    <% if logged_in? %>
+     <p><%= current_user.email %></p>
+       <%= button_to "Log out", session_url, method: :delete %>
+    <% end  %>
+    
+    <%= yield %>
+  </body>
+</html>

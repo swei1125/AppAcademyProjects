@@ -1,0 +1,11 @@
+<h1><%= @track.title %></h1>
+
+
+<div class="track_option">
+  <h4>LINKS</h4>
+  <%#= button_to "New track", new_track_url, method: : %>
+  <%= button_to "Edit Track", edit_track_url(@track), method: :get %>
+  <%= button_to "Destroy Track", track_url(@track), method: :delete %>
+  <%= button_to "Back to #{@track.album.name}", album_url(@track.album), method: :get %>
+
+</div>

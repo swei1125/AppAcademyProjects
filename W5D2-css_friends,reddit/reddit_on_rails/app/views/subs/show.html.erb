@@ -1,0 +1,14 @@
+<h1><%= @sub.title %></h1>
+<h2><%= @sub.description %></h2>
+<% if current_user == @sub.moderator %>
+  <%= link_to "Edit Sub", edit_sub_url(@sub) %>
+<% end %>
+<br>
+<%= link_to "Make New Post!", new_post_url %>
+<br>
+<% posts = @sub.posts.sort_by {|post| post.vote_count} %>
+<% posts.reverse.each do |post| %>
+  <%= "(#{post.vote_count}) " %>
+  <%= link_to "#{post.title}", post_url(post) %>
+  <br>
+<% end %>

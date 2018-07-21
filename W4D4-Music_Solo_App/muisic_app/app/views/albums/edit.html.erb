@@ -1,0 +1,42 @@
+<h1>UPDATE <%= @album.title.upcase %> ALBUM!</h1>
+
+
+<form class="update_album" action="<%= album_url(@album) %>" method="post">
+  <input type="hidden" name="_method" value="patch">
+  <%= authen_form %>
+
+  <label for="album_title">Title
+    <input type="text" name="album[title]" value="<%= @album.title %>">
+  </label>
+  <br><br>
+
+
+  <label for="album_band">Band
+    <select name="album[band]">
+      <% Band.all.each do |band| %>
+        <option value="<%= band.id %>" <%= @album.band == band ? "selected" : "" %>>
+          <%= band.name %>
+        </option>
+      <% end  %>
+    </select>
+  </label>
+  <br><br>
+
+  <label for="album_type">Live
+    <input type="radio" name="album[alb_type]" value="Live"
+     <%= @album.alb_type == "Live" ? "checked" : "" %> >
+  </label>
+  <label for="album_type">Studio
+    <input type="radio" name="album[alb_type]" value="Studio"
+     <%= @album.alb_type == "Studio" ? "checked" : '' %> >
+  </label>
+  <br><br>
+
+  <label for="album_year">Year
+    <input type="text" name="album[year]" value="<%= @album.year %>">
+  </label>
+  <br><br>
+
+  <input type="submit" value="Submit">
+
+</form>

@@ -1,0 +1,21 @@
+
+<h1><%= "(#{@post.vote_count}) #{@post.title} by #{@post.author.username}" %> </h1>
+
+<h2> <%= @post.content %> </h2>
+
+<h3>Subs</h3>
+<% @post.subs.each do |sub| %>
+  <%= link_to "#{sub.title}", sub_url(sub) %>
+<% end %>
+
+<%= button_to "Upvote", post_upvote_url(@post), method: :post %>
+<%= button_to "Downvote", post_downvote_url(@post), method: :post %>
+<br><br>
+
+<%= link_to "New Comment", new_post_comment_url(@post) %>
+<br><br>
+
+<% top_comments = @post.top_level_comments.sort_by {|c| c.vote_count} %>
+<% top_comments.reverse.each do |comment| %>
+  <%= render 'comment', comment:comment, comments_by_parent_id: @comments_by_parent_id %>
+<% end %>
