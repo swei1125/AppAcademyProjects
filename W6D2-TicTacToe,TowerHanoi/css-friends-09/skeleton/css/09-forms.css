@@ -1,0 +1,31 @@
+/* PHASE 9: Forms */
+/* .thumb, .form {
+  display: inline-block;
+} */
+
+.form section {
+  float: right;
+  width: calc(100% - 100px);
+  border: #ccc 1px solid;
+  border-radius: 5px;
+  background-color: lightgray;
+  padding: 25px;
+}
+
+.thumb a {
+  float: left;
+}
+
+.form section label {
+  display: block;
+  padding: 10px 0px;
+  border: #ccc 1px solid;
+  font-weight: bold;
+}
+
+.form section input, .form section textarea {
+  width: 95%;
+  padding: 10px;
+
+  background-color: white;
+}

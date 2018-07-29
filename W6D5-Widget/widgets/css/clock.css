@@ -1,0 +1,30 @@
+
+
+.clock {
+  display: block;
+  background-color: orange;
+  border-radius: 10px;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+  /* width: 100%; */
+  border: 2px solid black;
+}
+
+.clock p {
+  display: flex;
+  justify-content: space-between;
+  /* padding: 10px; */
+  margin-left: 30px;
+  margin-right: 30px;
+}
+
+.clock p:first-child {
+  margin-top: 15px;
+  padding-bottom: 5px;
+}
+
+.clock p:last-child {
+  padding-bottom: 15px;
+  padding-top: 5px;
+}

@@ -1,0 +1,23 @@
+body {
+  display: flex;
+  justify-content: space-around;
+  line-height: 1.2;
+}
+
+.widget {
+  padding: 20px;
+}
+
+
+[class*='main-'] {
+  width: 600px;
+  height: 200px;
+  margin: auto;
+  font-family: 'Righteous', cursive;
+}
+
+[class*='main-'] h1 {
+  font-size: 28px;
+  font-weight: bold;
+  padding: 10px 0;
+}

@@ -1,0 +1,65 @@
+h1 {
+  display: flex;
+  justify-content: center;
+  font-size: 60px;
+  font-family: sans-serif;
+}
+
+h2 {
+  display: flex;
+  justify-content: center;
+  font-size: 30px;
+  font-family: sans-serif;
+}
+
+figure {
+  width: 300px;
+  margin: auto;
+
+}
+
+.grid {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  padding: 5px;
+  background-color: black;
+}
+
+.cell {
+  display: block;
+  width: 90px;
+  height: 90px;
+  background-color: gray;
+  border: 5px solid black;
+}
+
+.x, .o {
+  display: block;
+  width: 90px;
+  height: 90px;
+  background-color: gray;
+  border: 5px solid black;
+}
+
+.x:after {
+  content: "x";
+  font-size: 60px;
+  font-family: sans-serif;
+  font-weight: bold;
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+.o:after {
+  content: "o";
+  font-size: 60px;
+  font-weight: bold;
+  font-family: sans-serif;
+  display: flex;
+  justify-content: center;
+  padding-top: 5px;
+}
+.cell:hover {
+  background-color: yellow;
+}
