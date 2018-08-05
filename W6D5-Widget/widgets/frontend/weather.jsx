@@ -12,8 +12,8 @@ class Weather extends React.Component {
     const xhr = new XMLHttpRequest();
     let that = this;
     navigator.geolocation.getCurrentPosition(function(position) {
-      let lat = Math.floor(position.coords.latitude);
-      let lon = Math.floor(position.coords.longitude);
+      let lat = position.coords.latitude;
+      let lon = position.coords.longitude;
       xhr.onreadystatechange = () => {
         if (xhr.readyState === 4 && xhr.status === 200) {
           let data = JSON.parse(xhr.response);
