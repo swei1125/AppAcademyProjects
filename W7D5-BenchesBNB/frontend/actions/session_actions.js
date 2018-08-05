@@ -11,7 +11,6 @@ export const receiveCurrentUser = (user) => ({
 
 export const logoutCurrentUser = () => ({
   type: LOGOUT_CURRENT_USER,
-  user: {}
 });
 
 export const receiveErrors = (errors) => ({
@@ -21,15 +20,21 @@ export const receiveErrors = (errors) => ({
 
 export const login = (user) => dispatch => (
   SessionAPI.login(user)
-  .then(user => dispatch(receiveCurrentUser(user)))
+  .then(
+    newuser => dispatch(receiveCurrentUser(newuser)),
+    err => dispatch(receiveErrors(err.responseJSON))
+  )
 );
 
 export const signup = (user) => dispatch => (
   SessionAPI.signup(user)
-  .then(user => dispatch(receiveCurrentUser(user)))
+  .then(
+    newuser => dispatch(receiveCurrentUser(newuser)),
+    err => dispatch(receiveErrors(err.responseJSON))
+  )
 );
 
 export const logout = () => dispatch => (
   SessionAPI.logout()
-  .then(user => dispatch(logoutCurrentUser()))
+  .then(() => dispatch(logoutCurrentUser()))
 );
