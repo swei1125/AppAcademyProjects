@@ -1,7 +1,7 @@
 import React from 'react';
 
 class BenchIndex extends React.Component {
-  
+
   render() {
     return(
       <div>
@@ -9,8 +9,9 @@ class BenchIndex extends React.Component {
           {this.props.benches.map(bench =>
             <div key={bench.id}>
               <p>{bench.description}</p>
-              <li>{bench.lat}</li>
-              <li>{bench.lng}</li>
+              <li>Seating: {bench.seating}</li>
+              <li>Latitude: {bench.lat}</li>
+              <li>Longitude: {bench.lng}</li>
             </div>)}
         </ul>
       </div>
