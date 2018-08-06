@@ -5,3 +5,11 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+bench1 = Bench.create(description: 'bench1', lat: 37.798935, lng: -122.401437)
+bench2 = Bench.create(description: 'bench2', lat: 37.797034, lng: -122.397764)
+bench3 = Bench.create(description: 'bench3', lat: 37.795521, lng: -122.397373)
+bench4 = Bench.create(description: 'bench4', lat: 37.796250, lng: -122.398939)
+bench5 = Bench.create(description: 'bench5', lat: 37.794788, lng: -122.395407)
+bench6 = Bench.create(description: 'bench6', lat: 37.793697, lng: -122.396933)
+bench7 = Bench.create(description: 'bench7', lat: 37.793235, lng: -122.397298)
