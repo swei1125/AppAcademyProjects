@@ -1,15 +1,17 @@
 import Search from './search';
 import {connect} from 'react-redux';
-import {updateBounds} from '../actions/filter_actions';
+import {updateFilter} from '../actions/bench_actions';
 
 
 const mapStateToProps = state => ({
   benches: Object.values(state.entities.benches),
-  
+  maxSeating: state.ui.filters.maxSeating,
+  minSeating: state.ui.filters.minSeating
+
 });
 
 const mapDispatchToProps = dispatch => ({
-  updateBounds: (bounds) => dispatch(updateBounds(bounds))
+  updateFilter: (filter, value) => dispatch(updateFilter(filter, value))
 });
 
 

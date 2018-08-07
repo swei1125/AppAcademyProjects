@@ -50,7 +50,7 @@ class BenchMap extends React.Component {
 
       const bounds = {northEast: {lat: ne_lat, lng: ne_lng}, southWest: {lat: sw_lat, lng: sw_lng}};
 
-      this.props.updateBounds(bounds);
+      this.props.updateFilter('bounds', bounds);
     });
 
     google.maps.event.addListener(this.map, 'click', (e) => {

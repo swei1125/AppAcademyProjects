@@ -2,6 +2,7 @@ import * as BenchAPI from '../utils/bench_api_util';
 
 export const RECEIVE_BENCHES = "RECEIVE_BENCHES";
 export const RECEIVE_BENCH = "RECEIVE_BENCH";
+export const UPDATE_FILTER = "UPDATE_FILTER";
 
 export const receiveBenches = benches => ({
   type: RECEIVE_BENCHES,
@@ -13,8 +14,19 @@ export const receiveBench = bench => ({
   bench
 });
 
-export const fetchBenches = (bounds) => dispatch => (
-  BenchAPI.fetchBenches(bounds)
+export const changeFilter = (filter, value) => ({
+  type: UPDATE_FILTER,
+  filter,
+  value
+});
+
+export const updateFilter = (filter, value) => (dispatch, getState) => {
+  dispatch(changeFilter(filter, value));
+  return fetchBenches(getState().ui.filters)(dispatch);
+};
+
+export const fetchBenches = (filters) => dispatch => (
+  BenchAPI.fetchBenches(filters)
   .then(benches => dispatch(receiveBenches(benches)))
 );
 
